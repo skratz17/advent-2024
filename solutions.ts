@@ -14,6 +14,8 @@ import sevenA from './solutions/7/a/solve.ts';
 import sevenB from './solutions/7/b/solve.ts';
 import eightA from './solutions/8/a/solve.ts';
 import eightB from './solutions/8/b/solve.ts';
+import nineA from './solutions/9/a/solve.ts';
+import nineB from './solutions/9/b/solve.ts';
 
 export const solutions = {
   '1': {
@@ -47,5 +49,9 @@ export const solutions = {
   '8': {
     'a': eightA,
     'b': eightB,
+  },
+  '9': {
+    'a': nineA,
+    'b': nineB,
   },
 };
