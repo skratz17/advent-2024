@@ -21,4 +21,6 @@ if(!subProblemSolver) {
 }
 
 const fileData = await readFile(path.join(import.meta.dirname, `./solutions/${problemId}/input.txt`));
+console.time('exec');
 console.log(await subProblemSolver(fileData));
+console.timeEnd('exec');
