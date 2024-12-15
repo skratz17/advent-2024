@@ -23,13 +23,14 @@ export const getNextCoord = (coords: number[], direction: Direction) => {
 };
 
 export const printGrid = async (grid: string[][]) => {
+  console.clear();
   for(const line of grid) {
     for(const char of line) {
       let color: ConsoleColor | undefined;
       if(char === '@') color = 'GREEN';
-      if(char === 'O' || char === '[' || char === ']') color = 'BLUE';
+      if(char === 'O' || char === '[' || char === ']') color = 'CYAN';
       if(char === '#') color = 'RED';
-      log(char, color);
+      log(char, color, 'BLACK');
     }
     log('\n');
   }
