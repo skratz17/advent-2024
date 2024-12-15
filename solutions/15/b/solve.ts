@@ -6,13 +6,13 @@ import type { Direction } from '../lib/domain.ts';
 export default async (fileData: string) => {
   const lines = getTrimmedLines(fileData);
   const { grid, inputs } = parseLines(lines);
-  await printGrid(grid);
   let robotPosition = getRobotStartingPosition(grid);
   for(let i = 0; i < inputs.length; i++) {
+    await printGrid(grid, inputs[i] as Direction);
     const nextCoords = move(grid, robotPosition, inputs[i] as Direction);
     robotPosition = nextCoords ?? robotPosition;
-    await printGrid(grid);
   }
+  await printGrid(grid, '@');
   return scoreGrid(grid);
 };
 

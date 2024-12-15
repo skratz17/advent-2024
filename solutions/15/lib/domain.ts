@@ -22,12 +22,15 @@ export const getNextCoord = (coords: number[], direction: Direction) => {
   else if (direction === '<') return [ x, y - 1 ];
 };
 
-export const printGrid = async (grid: string[][]) => {
+export const printGrid = async (grid: string[][], direction: Direction | '@') => {
   console.clear();
   for(const line of grid) {
-    for(const char of line) {
+    for(let char of line) {
       let color: ConsoleColor | undefined;
-      if(char === '@') color = 'GREEN';
+      if(char === '@') {
+        char = direction;
+        color = 'GREEN';
+      }
       if(char === 'O' || char === '[' || char === ']') color = 'CYAN';
       if(char === '#') color = 'RED';
       log(char, color, 'BLACK');
