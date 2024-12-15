@@ -1,14 +1,17 @@
+import { sleep } from '../../../lib/utils/sleep.ts';
 import { getTrimmedLines } from '../../../lib/utils/stringManip.ts';
-import { getNextCoord, getRobotStartingPosition } from '../lib/domain.ts';
+import { getNextCoord, getRobotStartingPosition, printGrid } from '../lib/domain.ts';
 import type { Direction } from '../lib/domain.ts';
 
-export default (fileData: string) => {
+export default async (fileData: string) => {
   const lines = getTrimmedLines(fileData);
   const { grid, inputs } = parseLines(lines);
+  await printGrid(grid);
   let robotPosition = getRobotStartingPosition(grid);
   for(let i = 0; i < inputs.length; i++) {
     const nextCoords = move(grid, robotPosition, inputs[i] as Direction);
     robotPosition = nextCoords ?? robotPosition;
+    await printGrid(grid);
   }
   return scoreGrid(grid);
 };

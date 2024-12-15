@@ -1,3 +1,7 @@
+import type { ConsoleColor } from '../../../lib/config/colors.ts';
+import { log } from '../../../lib/utils/log.ts';
+import { sleep } from '../../../lib/utils/sleep.ts';
+
 export type Direction = '^' | '>' | 'v' | '<';
 
 export const getRobotStartingPosition = (grid: string[][]) => {
@@ -16,4 +20,19 @@ export const getNextCoord = (coords: number[], direction: Direction) => {
   else if(direction === '>') return [ x, y + 1 ];
   else if (direction === 'v') return [ x + 1, y ];
   else if (direction === '<') return [ x, y - 1 ];
+};
+
+export const printGrid = async (grid: string[][]) => {
+  for(const line of grid) {
+    for(const char of line) {
+      let color: ConsoleColor | undefined;
+      if(char === '@') color = 'GREEN';
+      if(char === 'O' || char === '[' || char === ']') color = 'BLUE';
+      if(char === '#') color = 'RED';
+      log(char, color);
+    }
+    log('\n');
+  }
+
+  await sleep(150);
 };

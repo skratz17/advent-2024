@@ -1,3 +1,4 @@
+import { sleep } from '../../../lib/utils/sleep.ts';
 import { getTrimmedLines } from '../../../lib/utils/stringManip.ts';
 import { calculateFinalPosition, parseLine } from '../lib/domain.ts';
 import type { Dimensions } from '../lib/domain.ts';
@@ -14,7 +15,7 @@ export default async (fileData: string) => {
       positions.add(`${finalPosition[0]},${finalPosition[1]}`);
     }
     printPositions(positions, seconds, dimensions);
-    await sleep();
+    await sleep(250);
     seconds += dimensions.rows;
   }
 };
@@ -32,10 +33,4 @@ const printPositions = async (positions: Set<string>, seconds: number, dimension
     console.log(line);
   }
   console.log('\n');
-};
-
-const sleep = () => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, 150);
-  });
 };
