@@ -29,7 +29,7 @@ import fourteenB from './solutions/14/b/solve.ts';
 import fifteenA from './solutions/15/a/solve.ts';
 import fifteenB from './solutions/15/b/solve.ts';
 import sixteenA from './solutions/16/a/solve.ts';
-// import sixteenB from './solutions/16/b/solve.ts';
+import sixteenB from './solutions/16/b/solve.ts';
 
 export const solutions = {
   '1': {
@@ -94,6 +94,6 @@ export const solutions = {
   },
   '16': {
     'a': sixteenA,
-    // 'b': sixteenB,
+    'b': sixteenB,
   },
 };

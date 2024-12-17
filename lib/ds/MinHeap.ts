@@ -1,23 +1,36 @@
-export class MinHeap {
-  private heap: number[];
+interface HeapNode<T> {
+  key: string;
+  data: T;
+  value: number;
+}
+
+export class MinHeap<T> {
+  public heap: HeapNode<T>[];
+  public map: Record<string, number>; 
 
   constructor() {
     this.heap = [];
+    this.map = {};
   }
 
-  public insert(value: number): void {
-    this.heap.push(value);
+  public insert(node: HeapNode<T>): void {
+    this.heap.push(node);
     let index = this.heap.length - 1;
+    this.map[node.key] = index;
     let parentIndex = this.getParentIndex(index);
-    while(index !== 0 && parentIndex !== undefined && this.heap[parentIndex] > this.heap[index]) {
+    while(index !== 0 && parentIndex !== undefined && this.heap[parentIndex].value > this.heap[index].value) {
       this.swap(index, parentIndex);
       index = parentIndex;
       parentIndex = this.getParentIndex(index);
     }
   }
 
-  public removeMin(): number {
+  public removeMin(): HeapNode<T> {
     const min = this.heap.shift();
+    if(min.key === '[139,3]W') {
+      console.log('DELETING: ', min.key);
+    }
+    delete this.map[min.key];
     if(min === undefined) {
       throw new Error('heap was empty');
     }
@@ -28,7 +41,7 @@ export class MinHeap {
       let index = 0;
       let swapIndex = this.getLeftChildIndex(index);
       while(swapIndex !== undefined) {
-        swapIndex = this.heap[swapIndex] > this.heap[swapIndex + 1] ? swapIndex + 1 : swapIndex;
+        swapIndex = this.heap[swapIndex].value > this.heap[swapIndex + 1]?.value ? swapIndex + 1 : swapIndex;
         if(this.heap[index] <= this.heap[swapIndex]) {
           break;
         }
@@ -39,6 +52,17 @@ export class MinHeap {
     }
 
     return min;
+  }
+
+  public decreaseKey(key: string, value: number) {
+    let index = this.map[key];
+    this.heap[index].value = value;
+    let parentIndex = this.getParentIndex(index);
+    while(index !== 0 && parentIndex !== undefined && this.heap[parentIndex].value > this.heap[index].value) {
+      this.swap(index, parentIndex);
+      index = parentIndex;
+      parentIndex = this.getParentIndex(index);
+    }
   }
 
   public size(): number {
@@ -58,7 +82,15 @@ export class MinHeap {
 
   private swap(indexA: number, indexB: number) {
     const aVal = this.heap[indexA];
-    this.heap[indexA] = this.heap[indexB];
+    const bVal = this.heap[indexB];
+    this.heap[indexA] = bVal;
     this.heap[indexB] = aVal;
+    if(aVal.key === '[139,3]W') {
+      console.log('UPDATING TO: ', indexB);
+    } else if(bVal.key === '[139,3]W') {
+      console.log('UPDATING TO: ', indexA);
+    }
+    this.map[aVal.key] = indexB;
+    this.map[bVal.key] = indexA;
   }
 }
