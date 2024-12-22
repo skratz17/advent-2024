@@ -9,7 +9,6 @@ export default (fileData: string) => {
     for(let i = 0; i < 2000; i++) {
       newSecret = generateSecretNumber(newSecret);
     }
-    console.log(secretNumber, ': ', newSecret)
     sum += newSecret;
   }
   return sum;

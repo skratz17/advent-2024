@@ -13,39 +13,43 @@ export default (fileData: string) => {
     }
   }
   
-  // does not work
   const work = (registerA: string, pointer: number, registers: Registers) => {
-    console.log(registerA)
-    if(pointer === instructions.length) {
+    console.log(pointer, ': ', registerA)
+    if(pointer < 0) {
       console.log(registerA);
       return registerA;
     }
 
     for(let aVal = 0; aVal < 8; aVal++) {
+      const check = registerA + getThreeDigitBinary(aVal);
+      console.log(check)
       const computer = new Computer({
         ...registers,
-        A: parseInt(registerA + getThreeDigitBinary(aVal), 2),
+        A: parseInt(check, 2),
       }, instructions);
 
       try {
         computer.run();
       } catch {
         if(computer.getOutput()[0] === instructions[pointer]) {
-          work(registerA + getThreeDigitBinary(aVal), pointer + 1, {
-            A: parseInt(registerA + getThreeDigitBinary(aVal), 2),
+          const result = work(check, pointer - 1, {
+            A: parseInt(getThreeDigitBinary(aVal), 2),
             B: computer.getRegisters().B,
             C: computer.getRegisters().C,
           });
+          if(result) {
+            return result;
+          }
         }
       }
     }
   }
 
-  return work('', 0, {
+  return parseInt(work('', instructions.length - 1, {
     A: registerVals[0],
     B: registerVals[1],
     C: registerVals[2],
-  });
+  }), 2);
 };
 
 const getThreeDigitBinary = (val: number) => {

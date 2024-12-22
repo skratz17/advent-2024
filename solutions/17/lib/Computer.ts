@@ -66,7 +66,7 @@ export class Computer {
   }
 
   private bxl(operand: number) {
-    this.registers.B = operand ^ this.registers.B;
+    this.registers.B = (operand ^ this.registers.B) >>> 0;
     this.incrementInstructionPointer();
   }
 
@@ -84,7 +84,7 @@ export class Computer {
   }
 
   private bxc(operand: number) {
-    this.registers.B = this.registers.B ^ this.registers.C;
+    this.registers.B = (this.registers.B ^ this.registers.C) >>> 0;
     this.incrementInstructionPointer();
   }
 
