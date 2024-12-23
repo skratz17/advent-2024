@@ -32,7 +32,7 @@ export default (fileData: string) => {
 };
 
 const getLastDigit = (x: number) => {
-  return parseInt(('' + x).at(-1), 10);
+  return x % 10;
 };
 
 const findMostBananas = (changeMap: Map<number, Map<string, number>>) => {

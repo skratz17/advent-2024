@@ -14,25 +14,22 @@ export default (fileData: string) => {
   }
   
   const work = (registerA: string, pointer: number, registers: Registers) => {
-    console.log(pointer, ': ', registerA)
     if(pointer < 0) {
-      console.log(registerA);
       return registerA;
     }
 
     for(let aVal = 0; aVal < 8; aVal++) {
-      const check = registerA + getThreeDigitBinary(aVal);
-      console.log(check)
+      const newARegister = registerA + getThreeDigitBinary(aVal);
       const computer = new Computer({
         ...registers,
-        A: parseInt(check, 2),
+        A: parseInt(newARegister, 2),
       }, instructions);
 
       try {
         computer.run();
       } catch {
         if(computer.getOutput()[0] === instructions[pointer]) {
-          const result = work(check, pointer - 1, {
+          const result = work(newARegister, pointer - 1, {
             A: parseInt(getThreeDigitBinary(aVal), 2),
             B: computer.getRegisters().B,
             C: computer.getRegisters().C,
