@@ -44,6 +44,8 @@ import twentyTwoA from './solutions/22/a/solve.ts';
 import twentyTwoB from './solutions/22/b/solve.ts';
 import twentyThreeA from './solutions/23/a/solve.ts';
 import twentyThreeB from './solutions/23/b/solve.ts';
+import twentyFourA from './solutions/24/a/solve.ts';
+import twentyFourB from './solutions/24/b/solve.ts';
 
 export const solutions = {
   '1': {
@@ -137,5 +139,9 @@ export const solutions = {
   '23': {
     'a': twentyThreeA,
     'b': twentyThreeB,
+  },
+  '24': {
+    'a': twentyFourA,
+    'b': twentyFourB,
   },
 };
